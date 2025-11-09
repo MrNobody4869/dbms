@@ -172,3 +172,119 @@ SELECT SUM(amount) AS total_loan_amount FROM Loan;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- --------------------------------------------------------
+-- 🔹 BASIC SQL CONCEPTS USED
+-- --------------------------------------------------------
+
+-- DATABASE: A structured collection of data stored and managed electronically.
+-- TABLE: A database object that stores data in rows and columns.
+
+-- --------------------------------------------------------
+-- 🔹 CONSTRAINTS
+-- --------------------------------------------------------
+
+-- PRIMARY KEY: Uniquely identifies each record in a table.
+-- FOREIGN KEY: Links two tables; ensures referential integrity.
+-- NOT NULL: Ensures a column must have a value (no empty entries).
+-- CHECK: Restricts values based on a condition (e.g., amount >= 0).
+-- UNIQUE: Ensures all values in a column are different.
+-- COMPOSITE KEY: Combination of two or more columns used as a unique key.
+
+-- --------------------------------------------------------
+-- 🔹 DATA TYPES
+-- --------------------------------------------------------
+
+-- VARCHAR(n): Variable-length string up to n characters.
+-- INT: Whole numbers.
+-- DECIMAL(p, q): Numeric values with p digits total and q digits after decimal.
+
+-- --------------------------------------------------------
+-- 🔹 TABLE RELATIONSHIPS
+-- --------------------------------------------------------
+
+-- ONE-TO-MANY: One branch can have many accounts (Branch → Account).
+-- MANY-TO-MANY: One customer can have multiple accounts or loans (via Depositor and Borrower).
+
+-- --------------------------------------------------------
+-- 🔹 DML (Data Manipulation Language)
+-- --------------------------------------------------------
+
+-- INSERT INTO: Adds new records into a table.
+-- VALUES: Specifies the data to be inserted.
+
+-- --------------------------------------------------------
+-- 🔹 DDL (Data Definition Language)
+-- --------------------------------------------------------
+
+-- CREATE TABLE: Defines a new table structure.
+-- SHOW TABLES: Lists all tables in the current database.
+
+-- --------------------------------------------------------
+-- 🔹 DQL (Data Query Language)
+-- --------------------------------------------------------
+
+-- SELECT: Retrieves data from tables.
+-- DISTINCT: Removes duplicate values from result set.
+-- WHERE: Filters rows based on a condition.
+-- ORDER BY: Sorts the result set (ASC by default).
+-- GROUP BY: Groups rows sharing a value for aggregation.
+-- HAVING: Filters grouped results (used with GROUP BY).
+
+-- --------------------------------------------------------
+-- 🔹 SQL JOINS
+-- --------------------------------------------------------
+
+-- JOIN / INNER JOIN: Returns records with matching values in both tables.
+-- LEFT JOIN: Returns all records from left table and matched records from right.
+-- RIGHT JOIN: Returns all records from right table and matched records from left.
+
+-- --------------------------------------------------------
+-- 🔹 SET OPERATIONS
+-- --------------------------------------------------------
+
+-- UNION: Combines results from multiple SELECTs and removes duplicates.
+-- UNION ALL: Combines results but keeps duplicates.
+
+-- --------------------------------------------------------
+-- 🔹 AGGREGATE FUNCTIONS
+-- --------------------------------------------------------
+
+-- SUM(): Returns total sum of numeric column.
+-- AVG(): Returns average (mean) value.
+-- COUNT(): Counts number of rows.
+-- MIN(): Finds smallest value.
+-- MAX(): Finds largest value.
+
+-- --------------------------------------------------------
+-- 🔹 QUERY CONCEPTS USED
+-- --------------------------------------------------------
+
+-- ALIASING: Using short names for tables (e.g., Borrower b).
+-- SUBQUERIES: Query inside another query (not used here, but related concept).
+-- CONDITIONAL FILTERING:
+
+
