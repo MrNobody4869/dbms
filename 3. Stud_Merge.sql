@@ -96,3 +96,121 @@ CALL merge_rollcall();
 -- Display merged data
 SELECT * FROM O_Roll_Call;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- --------------------------------------------------------
+-- 🔹 BASIC CONCEPTS USED IN THIS PROGRAM
+-- --------------------------------------------------------
+
+-- PL/SQL / STORED PROCEDURE: A block of SQL code stored in the database that executes logic automatically.
+-- PARAMETERIZED CURSOR: A cursor that can take parameters to control which data it retrieves (conceptually used here).
+
+-- --------------------------------------------------------
+-- 🔹 TABLE CONCEPTS
+-- --------------------------------------------------------
+
+-- CREATE TABLE: Defines new tables to store attendance data.
+-- O_Roll_Call: Represents existing (old) attendance records.
+-- N_Roll_Call: Represents new incoming attendance records.
+-- DATA TYPES:
+--   INT → Whole numbers (used for roll numbers)
+--   VARCHAR(n) → Variable-length string (for names)
+--   DATE → Stores calendar dates (attendance dates)
+
+-- --------------------------------------------------------
+-- 🔹 SAMPLE DATA INSERTION
+-- --------------------------------------------------------
+
+-- INSERT INTO: Adds rows into both old and new roll call tables.
+-- Overlapping entries in both tables are used to test duplicate handling.
+
+-- --------------------------------------------------------
+-- 🔹 STORED PROCEDURE STRUCTURE
+-- --------------------------------------------------------
+
+-- CREATE PROCEDURE merge_rollcall(): Defines the merge operation.
+-- BEGIN...END: Marks the start and end of the procedure logic block.
+-- DELIMITER $$: Changes statement terminator so the SQL engine doesn’t stop at semicolons inside the procedure.
+
+-- --------------------------------------------------------
+-- 🔹 VARIABLE DECLARATIONS
+-- --------------------------------------------------------
+
+-- DECLARE: Used to define local variables inside the procedure.
+-- n_roll, n_name, n_date: Temporary variables to hold cursor-fetched data.
+-- done: Flag to signal when cursor has reached the end.
+-- cnt: Counter variable to check for duplicate records.
+
+-- --------------------------------------------------------
+-- 🔹 CURSOR USAGE
+-- --------------------------------------------------------
+
+-- CURSOR: A pointer that iterates row by row over query results.
+-- DECLARE cur CURSOR FOR SELECT...: Cursor defined to read all records from N_Roll_Call.
+-- OPEN cur: Activates the cursor for use.
+-- FETCH cur INTO...: Retrieves one record at a time into variables.
+-- CLOSE cur: Closes the cursor after all rows are processed.
+
+-- --------------------------------------------------------
+-- 🔹 HANDLER
+-- --------------------------------------------------------
+
+-- DECLARE CONTINUE HANDLER FOR NOT FOUND: Defines action when cursor has no more rows — sets done = 1 to stop looping.
+
+-- --------------------------------------------------------
+-- 🔹 LOOP AND CONTROL FLOW
+-- --------------------------------------------------------
+
+-- LOOP: Executes repeatedly until explicitly exited.
+-- IF done THEN LEAVE read_loop;: Exits loop once all rows are read.
+-- SELECT COUNT(*) INTO cnt: Checks if the record already exists in O_Roll_Call.
+-- IF cnt = 0 THEN INSERT...: Inserts record only if not already present (prevents duplication).
+
+-- --------------------------------------------------------
+-- 🔹 SQL LOGIC IMPLEMENTED
+-- --------------------------------------------------------
+
+-- COUNT(*): Counts matching records for duplication check.
+-- INSERT INTO: Adds only unique rows to the existing table.
+-- WHERE: Filters existing table rows to match roll_no and attendance_date.
+
+-- --------------------------------------------------------
+-- 🔹 EXECUTION
+-- --------------------------------------------------------
+
+-- CALL merge_rollcall(): Executes the merge process.
+-- SELECT * FROM O_Roll_Call: Displays all records after merging (combined old + new without duplicates).
+
+-- --------------------------------------------------------
+-- 🔹 GENERAL CONCEPTS
+-- --------------------------------------------------------
+
+-- DATA MERGING: Combining new and existing records while avoiding duplication.
+-- AUTOMATION: The stored procedure automates this process for efficiency.
+-- REUSABILITY: Procedure can be executed anytime to sync data between tables.
+-- TRANSACTION SAFETY: Cursor ensures record-by-record controlled insertion.
+-- INTEGRITY CHECK: Ensures that no duplicate roll_no with same date is inserted.
+
+
+
+
+
+
