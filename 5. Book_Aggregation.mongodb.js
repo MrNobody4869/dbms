@@ -58,3 +58,112 @@ db.books.getIndexes();
 // ===============================================
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ===============================================
+// THEORY NOTES – MongoDB Aggregation on Books Dataset
+// ===============================================
+
+// use Bookstore;
+// -- Switches or creates the "Bookstore" database.
+
+// db.books.insertMany([...])
+// -- Inserts multiple documents (records) into the "books" collection.
+// -- Each document has fields: title, author, genre, price, published_date.
+
+// ===============================================
+// AGGREGATION & OPERATIONS CONCEPTS
+// ===============================================
+
+// Aggregation
+// -- Process of transforming and combining data using pipeline stages like $group, $sort, $match, etc.
+// -- Similar to SQL GROUP BY with aggregate functions.
+
+// $group
+// -- Groups documents by a specified key (_id).
+// -- Used with accumulator operators like $sum, $avg, $max, $min.
+
+// $avg
+// -- Calculates the average value of a numeric field across grouped documents.
+
+// $sum
+// -- Counts total documents when given as $sum:1 or sums numeric field values when given a field.
+
+// $sort
+// -- Sorts documents based on specified field(s).
+// -- 1 for ascending order, -1 for descending order.
+
+// $first
+// -- Returns the first document in each group (depends on sort order applied before grouping).
+
+// $limit
+// -- Restricts the number of documents in the output.
+
+// find().sort()
+// -- Used for simple sorting on a collection outside of aggregation.
+// -- Example: sort by date descending or price ascending.
+
+// createIndex()
+// -- Creates an index on specified fields to speed up query performance.
+// -- Example: index on "title" for faster text search and sorting.
+
+// getIndexes()
+// -- Displays all indexes defined in a collection.
+
+// ===============================================
+// QUERY-WISE EXPLANATION
+// ===============================================
+
+// 1️⃣ Average Price of All Books
+// -- Groups all documents (_id: null) and calculates the average of 'price' field.
+
+// 2️⃣ Count of Books by Genre
+// -- Groups by 'genre' field and counts number of books in each genre using $sum:1.
+
+// 3️⃣ Most Expensive Book in Each Genre
+// -- First sorts books in descending order of price.
+// -- Then groups by genre and picks the first (highest-priced) book title and price.
+
+// 4️⃣ Author with Maximum Books
+// -- Groups by 'author' and counts total books per author.
+// -- Sorts result by bookCount descending and limits to 1 author with maximum books.
+
+// 5️⃣ Sort by Published Date (Descending)
+// -- Displays books ordered by latest published_date first.
+
+// 6️⃣ Sort by Price (Ascending)
+// -- Displays books ordered from lowest to highest price.
+
+// 7️⃣ Index Creation and Viewing
+// -- Creates ascending index on title field for faster lookups.
+// -- getIndexes() shows all indexes including default _id index.
+
+// ===============================================
+// OUTPUT SUMMARY
+// ===============================================
+// -- Aggregation outputs display computed statistics or grouped data.
+// -- find().sort() outputs documents in sorted order.
+// -- getIndexes() displays index structure details.
+
+
