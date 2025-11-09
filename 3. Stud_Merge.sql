@@ -48,36 +48,51 @@ INSERT INTO N_Roll_Call VALUES
 -- If a student with the same roll_no and attendance_date already exists,
 -- that record is skipped.
 -- ============================================
-DELIMITER //
+DELIMITER $$
 
-CREATE PROCEDURE merge_roll_call()
+CREATE PROCEDURE merge_rollcall()
 BEGIN
-  INSERT INTO O_Roll_Call (roll_no, student_name, attendance_date)
-  SELECT n.roll_no, n.student_name, n.attendance_date
-  FROM N_Roll_Call n
-  WHERE NOT EXISTS (
-    SELECT 1 FROM O_Roll_Call o
-    WHERE o.roll_no = n.roll_no
-      AND o.attendance_date = n.attendance_date
-  );
-END;
-//
+    -- Declare local variables
+    DECLARE n_roll INT;
+    DECLARE n_name VARCHAR(50);
+    DECLARE n_date DATE;
+    DECLARE done INT DEFAULT 0;
+    DECLARE cnt INT DEFAULT 0;
+    -- Cursor for new table data
+    DECLARE cur CURSOR FOR 
+        SELECT roll_no, student_name, attendance_date FROM N_Roll_Call;
+    -- Handler to exit loop when no more rows
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    -- Open cursor
+    OPEN cur;
+    -- Loop through each record in new table
+    read_loop: LOOP
+        FETCH cur INTO n_roll, n_name, n_date;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        -- Check if record already exists in old table
+        SELECT COUNT(*) INTO cnt 
+        FROM O_Roll_Call 
+        WHERE roll_no = n_roll AND attendance_date = n_date;
+        -- If not exists, insert new record
+        IF cnt = 0 THEN
+            INSERT INTO O_Roll_Call VALUES (n_roll, n_name, n_date);
+        END IF;
+    END LOOP;
+
+    -- Close cursor
+    CLOSE cur;
+END$$
 
 DELIMITER ;
+
 -- ✅ Stored procedure created successfully
 
 
--- ============================================
--- ▶️ Execute the Procedure
--- This will merge new data into O_Roll_Call without duplicating existing rows
--- ============================================
-CALL merge_roll_call();
--- ✅ Procedure executed successfully
+-- Execute merge procedure, This will merge new data into O_Roll_Call without duplicating existing rows
+CALL merge_rollcall();
 
-
--- ============================================
--- 📊 Display Final Output
--- To verify that the data was merged correctly
--- ============================================
+-- Display merged data
 SELECT * FROM O_Roll_Call;
--- ✅ Displays final merged table
+
