@@ -63,10 +63,126 @@ CALL proc_Grade();
 -- Display final categorized results
 SELECT * FROM Result;
 
--- Explanation:
--- 1. 'Stud_Marks' table holds student names and total marks.
--- 2. 'Result' table stores categorized grades.
--- 3. The stored procedure 'proc_Grade' reads each student record using a cursor.
--- 4. Marks are checked and categorized into Distinction, First Class, Higher Second Class, or Fail.
--- 5. The categorized result is inserted into the Result table.
--- 6. 'CALL proc_Grade()' executes the grading process, and final results are displayed with SELECT.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- --------------------------------------------------------
+-- 🔹 BASIC CONCEPTS USED IN THIS PROGRAM
+-- --------------------------------------------------------
+
+-- STORED PROCEDURE: A precompiled block of SQL code stored in the database, executed when called.
+
+-- PROCEDURAL SQL: Allows using logic (loops, conditions, variables) inside SQL programs.
+
+-- DELIMITER: Temporarily changes the statement-ending character so that SQL engine doesn't stop at semicolons inside procedures.
+
+-- --------------------------------------------------------
+-- 🔹 TABLE CONCEPTS
+-- --------------------------------------------------------
+
+-- CREATE TABLE: Defines a new table structure.
+-- AUTO_INCREMENT: Automatically generates sequential numeric values for each new record (used for roll numbers).
+-- PRIMARY KEY: Uniquely identifies each record in a table.
+-- VARCHAR(n): Variable-length string data type.
+-- INT: Integer numeric data type.
+
+-- --------------------------------------------------------
+-- 🔹 SAMPLE DATA INSERTION
+-- --------------------------------------------------------
+
+-- INSERT INTO: Adds data (student name and marks) into the 'Stud_Marks' table.
+
+-- --------------------------------------------------------
+-- 🔹 STORED PROCEDURE STRUCTURE
+-- --------------------------------------------------------
+
+-- CREATE PROCEDURE proc_Grade(): Defines a stored procedure named 'proc_Grade'.
+-- BEGIN...END: Marks the start and end of the procedure body.
+
+-- --------------------------------------------------------
+-- 🔹 VARIABLES & DECLARATIONS
+-- --------------------------------------------------------
+
+-- DECLARE: Defines local variables inside a stored procedure.
+-- done: A flag variable used to detect the end of data.
+-- v_name, v_marks, v_class: Temporary variables to store fetched data.
+
+-- --------------------------------------------------------
+-- 🔹 CURSORS
+-- --------------------------------------------------------
+
+-- CURSOR: A database pointer used to fetch query results row by row.
+-- DECLARE cur CURSOR FOR SELECT...: Defines a cursor to loop through each student record.
+-- OPEN cur: Activates the cursor for use.
+-- FETCH cur INTO: Retrieves one row at a time into variables.
+-- CLOSE cur: Closes the cursor after processing.
+
+-- --------------------------------------------------------
+-- 🔹 HANDLERS
+-- --------------------------------------------------------
+
+-- DECLARE CONTINUE HANDLER FOR NOT FOUND: Defines what happens when no more rows are available — here it sets 'done = 1'.
+
+-- --------------------------------------------------------
+-- 🔹 LOOPING AND CONTROL STRUCTURES
+-- --------------------------------------------------------
+
+-- LOOP: Repeats code until explicitly exited.
+-- LEAVE: Exits the current loop when condition is met.
+-- IF...ELSEIF...ELSE: Conditional branching to check mark ranges and assign grade.
+
+-- --------------------------------------------------------
+-- 🔹 LOGIC IMPLEMENTED
+-- --------------------------------------------------------
+
+-- Marks 990–1500 → 'Distinction'
+-- Marks 900–989  → 'First Class'
+-- Marks 825–899  → 'Higher Second Class'
+-- Marks <825     → 'Fail'
+
+-- SET: Assigns value to a variable.
+
+-- --------------------------------------------------------
+-- 🔹 INSERTING RESULTS
+-- --------------------------------------------------------
+
+-- INSERT INTO Result(name, class): Adds processed student name and grade category to the Result table.
+
+-- --------------------------------------------------------
+-- 🔹 EXECUTION
+-- --------------------------------------------------------
+
+-- CALL proc_Grade(): Executes the stored procedure.
+-- SELECT * FROM Result: Displays all final categorized records.
+
+-- --------------------------------------------------------
+-- 🔹 GENERAL CONCEPTS
+-- --------------------------------------------------------
+
+-- DML (Data Manipulation Language): Used for inserting or updating data (INSERT, UPDATE).
+-- DDL (Data Definition Language): Used for defining structures (CREATE TABLE).
+-- PROCEDURAL EXTENSIONS: MySQL allows using loops and logic via stored procedures.
+-- REUSABILITY: Stored procedures can be executed multiple times without rewriting SQL code.
+-- AUTOMATION: Reduces manual data entry for repetitive classification or calculations.
